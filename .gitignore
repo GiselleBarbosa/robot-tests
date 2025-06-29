@@ -1,0 +1,15 @@
+# Ignora ambientes virtuais
+venv/
+.env/
+
+# Ignora arquivos temporários do VS Code
+.vscode/
+
+# Ignora relatórios do Robot Framework
+*.html
+*.xml
+*.log
+
+# Ignora arquivos do sistema
+.DS_Store
+Thumbs.db
