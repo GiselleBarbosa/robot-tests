@@ -1,8 +1,8 @@
-# Guia de Configuração e Execução de Testes com Robot Framework
+## Guia de Configuração e Execução de Testes com Robot Framework
 
 Este README detalha os passos necessários para configurar seu ambiente, instalar as dependências e executar os testes de automação web desenvolvidos com Robot Framework e SeleniumLibrary.
 
-## Pré-requisitos
+### Pré-requisitos
 
 Antes de começar, certifique-se de ter o seguinte instalado em seu sistema:
 
@@ -15,9 +15,9 @@ Antes de começar, certifique-se de ter o seguinte instalado em seu sistema:
   - [ChromeDriver](https://chromedriver.chromium.org/downloads)
   - Coloque o arquivo executável do driver (ex: chromedriver.exe) em um diretório que esteja no seu PATH do sistema ou na pasta Scripts do seu ambiente virtual
 
-## Configuração do Ambiente
+### Configuração do Ambiente
 
-### 1. Política de Execução do PowerShell (Apenas Windows PowerShell)
+#### 1. Política de Execução do PowerShell (Apenas Windows PowerShell)
 
 Se você estiver usando o Windows PowerShell, pode ser necessário ajustar a política de execução:
 
@@ -29,49 +29,57 @@ Se você estiver usando o Windows PowerShell, pode ser necessário ajustar a pol
    - Confirme a permissão de administrador
 
 2. Execute o comando:
+
    ```powershell
    Set-ExecutionPolicy RemoteSigned
    ```
+
    - Digite S (Sim) quando solicitado
    - Feche a janela do PowerShell de administrador
 
-### 2. Criação e Ativação do Ambiente Virtual
+#### 2. Criação e Ativação do Ambiente Virtual
 
 1. Navegue até a pasta raiz do projeto:
+
    ```powershell
-   cd C:\Users\gsbar\venv\robot-tests
+   cd C:\Users\user\venv\robot-tests
    ```
 
 2. Remova qualquer ambiente virtual existente:
+
    ```powershell
    Remove-Item -Recurse -Force venv
    ```
 
 3. Crie um novo ambiente virtual:
+
    ```powershell
    python -m venv venv
    ```
 
 4. Ative o ambiente virtual:
+
    ```powershell
    . .\venv\Scripts\Activate.ps1
    ```
 
-### 3. Instalação das Dependências
+#### 3. Instalação das Dependências
 
 Com o ambiente virtual ativado:
 
 1. Atualize o pip:
+
    ```powershell
    pip install --upgrade pip
    ```
 
 2. Instale o Robot Framework e a SeleniumLibrary:
+
    ```powershell
    pip install robotframework robotframework-seleniumlibrary
    ```
 
-## Estrutura do Projeto
+### Estrutura do Projeto
 
 ```
 robot-tests/
@@ -84,9 +92,10 @@ robot-tests/
     └── urls.robot            # Variáveis de URLs e outros dados globais
 ```
 
-## Conteúdo dos Arquivos Robot Framework
+### Conteúdo dos Arquivos Robot Framework
 
-### tests/navegar_pagina.robot
+#### tests/navegar_pagina.robot
+
 ```robotframework
 *** Settings ***
 Library           SeleniumLibrary
@@ -105,7 +114,8 @@ Acessar Página de Carrinho
     Fechar Navegador
 ```
 
-### resources/navigation_keywords.robot
+#### resources/navigation_keywords.robot
+
 ```robotframework
 *** Settings ***
 Library    SeleniumLibrary
@@ -120,7 +130,8 @@ Fechar Navegador
     Close Browser
 ```
 
-### variables/urls.robot
+#### variables/urls.robot
+
 ```robotframework
 *** Variables ***
 ${BASE_URL}           http://localhost:4201
@@ -128,41 +139,49 @@ ${PRODUCTS_URL}       ${BASE_URL}/products
 ${CART_URL}           ${BASE_URL}/cart
 ```
 
-## Execução dos Testes
+### Execução dos Testes
 
 1. Certifique-se de que seu ambiente virtual está ativo:
+
    ```powershell
-   cd C:\Users\gsbar\venv\robot-tests
+   cd C:\Users\user\venv\robot-tests
    . .\venv\Scripts\Activate.ps1
    ```
 
 2. Navegue até a pasta tests:
+
    ```powershell
    cd tests
    ```
 
 3. Execute os testes:
+
    ```powershell
    robot navegar_pagina.robot
    ```
 
 O Robot Framework gerará relatórios (.html) e logs (.html) detalhados na pasta tests.
 
-## Resolução de Problemas Comuns
+### Resolução de Problemas Comuns
 
-### AttributeError: module 'certifi' has no attribute 'where' ou No keyword with name 'Open Browser' found
+#### AttributeError: module 'certifi' has no attribute 'where' ou No keyword with name 'Open Browser' found
+
 - Solução: Recriar o ambiente virtual e reinstalar as dependências conforme as seções anteriores.
 
-### Resource file '...' does not exist
+#### Resource file '...' does not exist
+
 - Verifique se há comentários (#) na mesma linha que a declaração Resource
 - Exemplo correto:
+
   ```robotframework
   Resource          ../resources/navigation_keywords.robot
   # Comentário aqui
   ```
 
-### DevTools listening on ws://127.0.0.1:... e teste FAIL
+#### DevTools listening on ws://127.0.0.1:... e teste FAIL
+
 Se o teste falhar com "Page Should Contain Element 'css:h1' but did not":
-1. Inspecione a página web (http://localhost:4201/products)
+
+1. Inspecione a página web (<http://localhost:4201/products>)
 2. Verifique a estrutura HTML
 3. Ajuste o seletor CSS, ID ou XPath conforme necessário
