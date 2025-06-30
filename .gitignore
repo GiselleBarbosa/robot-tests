@@ -13,3 +13,6 @@ venv/
 # Ignora arquivos do sistema
 .DS_Store
 Thumbs.db
+
+Scripts/
+Lib
